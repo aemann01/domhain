@@ -1,3 +1,3 @@
 ### Metadata
 
-![erd diagram](database_files/ERD.pdf)
+![erd diagram](database_files/ERD.png)
