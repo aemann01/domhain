@@ -508,3 +508,10 @@ seqtk subseq rep_set.fa wanted.ids > rep_set.filt.fa
 cat wanted.ids | while read line; do grep -w $line taxonomy.txt ; done > taxonomy_bac.txt
 ```
 
+Build a tree from the filtered representative sequences
+
+```bash
+mafft rep_set.filt.fa > rep_set.align.fa
+fasttree -nt rep_set.align.fa > rep_set.align.tre
+```
+
