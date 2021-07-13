@@ -7,6 +7,7 @@
 -- -----------------------------------------------------
 -- MySQL doesn't like the , or & in the domhain sample names, be sure to change them to '-' in all of your self-made metadata files before starting
 -- This tutorial is based on Mac OS with homebrew installed, setting MySQL up on a different OS will be different
+-- ALL DATA should be saved as a Mac formatted csv file (or at least all in the same format or you'll have trouble)
 
 -- -----------------------------------------------------
 -- INSTALLATION
@@ -111,7 +112,7 @@ CREATE TABLE Sample_sheet (
 	PRIMARY KEY (sample_id) 
 );
 -- now load your csv file into the newly created table
-LOAD DATA LOCAL INFILE '/Users/mann/github/domhain/01-metadata/SampleSheet.csv'
+LOAD DATA LOCAL INFILE 'SampleSheet.csv'
 	INTO TABLE Sample_sheet
 	FIELDS TERMINATED BY ','
 	LINES TERMINATED BY '\n'
@@ -124,13 +125,15 @@ SELECT * FROM Sample_sheet LIMIT 5;
 -- subsample the sample manifest 
 SELECT * 
 	FROM Sample_manifest 
-	JOIN Sample_sheet 
+	RIGHT OUTER JOIN Sample_sheet 
 	ON Sample_manifest.manifest_id = Sample_sheet.sample_id;
+-- NOTE: using a right outer join here lets you know where you might have sample id spelling mistakes (not present in the manifest), check this before going on
+-- if you have null values, update your sample sheet and ASV table to the name in the sample manifest
 -- create a new table from the join
 CREATE TABLE My_samples
 SELECT * 
 	FROM Sample_manifest 
-	JOIN Sample_sheet 
+	RIGHT OUTER JOIN Sample_sheet 
 	ON Sample_manifest.manifest_id = Sample_sheet.sample_id;
 -- see head of new table
 SELECT * FROM My_samples LIMIT 5;
@@ -194,9 +197,13 @@ DESCRIBE My_samples;
 -- +-----------------+--------------+------+-----+---------+-------+
 -- 27 rows in set (0.00 sec)
 
+-- where do you have null values (i.e. no sample manifest entry) in my samples?
+SELECT * FROM My_samples WHERE manifest_id is Null;
+
 -- Make a new cleaned up table from your selected columns
 CREATE TABLE temp 
-	SELECT My_samples.manifest_id, 
+	SELECT My_samples.study_id,
+	My_samples.manifest_id, 
 	My_samples.hiv_status, 
 	My_samples.visit_num, 
 	My_samples.sample_type, 
@@ -210,11 +217,12 @@ CREATE TABLE temp
 DROP TABLE temp;
 -- Make a more complex table
 CREATE TABLE temp 
-	SELECT My_samples.manifest_id, 
+	SELECT 
+	My_samples.study_id,
+	My_samples.manifest_id, 
 	My_samples.hiv_status, 
 	My_samples.visit_num, 
-	My_samples.sample_type, 
-	Demographic.study_id, 
+	My_samples.sample_type,  
 	Demographic.sex, 
 	Demographic.age_y, 
 	Demographic.study_group,

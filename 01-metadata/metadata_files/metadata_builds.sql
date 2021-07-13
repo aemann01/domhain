@@ -2,6 +2,37 @@
 -- DOMHAIN METADATA QUERYS
 -- -----------------------------------------------------
 
+-- Get database and sample sheet loaded 
+USE domhain;
+DROP TABLE Sample_sheet;
+-- first need to make a blank table to populate (can't use "index" as column name)
+CREATE TABLE Sample_sheet (
+	sample_id VARCHAR(255) NOT NULL,
+	sample_name VARCHAR(255),
+	sample_plate INT,
+	sample_well INT,
+	i5_index_id VARCHAR(255),
+	index1 VARCHAR(255),
+	i7_index_id VARCHAR(255),
+	index2 VARCHAR(255),
+	sample_project VARCHAR(255),
+	description VARCHAR(255),
+	PRIMARY KEY (sample_id) 
+);
+-- now load your csv file into the newly created table
+LOAD DATA LOCAL INFILE 'SampleSheet-2021.6.28.csv'
+	INTO TABLE Sample_sheet
+	FIELDS TERMINATED BY ','
+	LINES TERMINATED BY '\r'
+	IGNORE 18 LINES
+;
+-- merge sample sheet and manifest data
+CREATE TABLE My_samples
+SELECT * 
+	FROM Sample_manifest 
+	RIGHT OUTER JOIN Sample_sheet 
+	ON Sample_manifest.manifest_id = Sample_sheet.sample_id;
+
 -- Table containing dietary intake of sweets, medicine, or fermented foods in the last 24hrs before collection
 CREATE TABLE Sweets_fermented_foods 
 	SELECT My_samples.manifest_id, 
