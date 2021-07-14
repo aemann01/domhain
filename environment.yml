@@ -3,6 +3,7 @@ channels:
   - defaults
   - bioconda
   - conda-forge
+  - anaconda
 dependencies:
   - conda-forge::r-base=4.1.0
   - bioconda::seqtk=1.3
@@ -11,4 +12,4 @@ dependencies:
   - bioconda::mafft=7.480
   - bioconda::bioconductor-phyloseq=1.36.0
   - bioconda::bioconductor-microbiome=1.14.0
-
+  - anaconda::pandas=1.3.0
