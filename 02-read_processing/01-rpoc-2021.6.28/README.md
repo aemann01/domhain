@@ -478,16 +478,31 @@ write.table(data.frame("row_names"=rownames(seqtab.nochim),seqtab.nochim),"seque
 
 ### 19. Assign taxonomy
 
-Get database
+Download database files and pull rpoC annotated regions
 
 ```bash
-mkdir refdb
-cd refdb
-update_blast.pl 
+wget http://www.homd.org/ftp/HOMD_prokka_genomes/fna/ALL_genomes.fna
+wget http://www.homd.org/ftp/HOMD_prokka_genomes/tsv/ALL_genomes.tsv
+wget http://www.homd.org/ftp/HOMD_prokka_genomes/gff/ALL_genomes.gff
+wget http://www.homd.org/ftp/HOMD_prokka_genomes/ffn/ALL_genomes.ffn
+wget http://www.homd.org/ftp/HOMD_prokka_genomes/SEQFID_info.txt
+grep "rpoC" ALL_genomes.tsv | awk '{print $1}' > rpoc.ids
+seqtk subseq ALL_genomes.ffn rpoc.ids > HOMD_rpoC.fna
+awk -F"_" '{print $1}' rpoc.ids | sort | uniq > query.ids
+cat query.ids | while read line; do grep $line SEQFID_info.txt ; done > rpoc.info
 ```
 
+Format for dada2
+
 ```bash
-cat rep_set.fa | parallel --block 100k --recstart '>' --pipe blastn -db ~/refdb/nt/nt -evalue 1e-10 -outfmt 6 -query - > rep_set.blast.out
+awk -F"\t" '{print $1, "\t", $5, " ", $6}' rpoc.info > rpoc.rename
+sed 's/_.*//' HOMD_rpoC.fna  > temp
+
+```
+
+
+```bash
+cat rep_set.fa | parallel --block 100k --recstart '>' --pipe blastn -db ~/refdb/refseq_bac/ref_prok_rep_genomes -evalue 1e-10 -outfmt 6 -perc_identity 0.85 -query - > rep_set.blast.out
 ```
 
 Taxonomy assigned from blast output with MEGAN Community Edition (v.6). Select -> All Nodes, File -> Export -> Export to CSV -> readName_to_taxonPath, assigned, tab
