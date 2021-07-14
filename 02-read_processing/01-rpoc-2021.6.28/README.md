@@ -505,7 +505,10 @@ Remove unwanted ASVs from taxonomy, sequence table
 grep -v "Bacteria" taxonomy.txt | awk '{print $1}' > unwanted.ids
 grep "Bacteria" taxonomy.txt | awk '{print $1}' > wanted.ids
 seqtk subseq rep_set.fa wanted.ids > rep_set.filt.fa
-cat wanted.ids | while read line; do grep -w $line taxonomy.txt ; done > taxonomy_bac.txt
+grep "Bacteria" taxonomy.txt > taxonomy_bac.txt
+sed -i 's/;$//' taxonomy_bac.txt
+python fix_taxonomy.py taxonomy_bac.txt > temp
+mv temp taxonomy_bac.txt
 ```
 
 Build a tree from the filtered representative sequences
