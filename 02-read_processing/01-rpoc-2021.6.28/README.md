@@ -490,19 +490,19 @@ grep "rpoC" ALL_genomes.tsv | awk '{print $1}' > rpoc.ids
 seqtk subseq ALL_genomes.ffn rpoc.ids > HOMD_rpoC.fna
 awk -F"_" '{print $1}' rpoc.ids | sort | uniq > query.ids
 cat query.ids | while read line; do grep $line SEQFID_info.txt ; done > rpoc.info
+sed -i 's/_.*//' HOMD_rpoC.fna
 ```
 
-Format for dada2
+Make blast db
 
 ```bash
-awk -F"\t" '{print $1, "\t", $5, " ", $6}' rpoc.info > rpoc.rename
-sed 's/_.*//' HOMD_rpoC.fna  > temp
-
+makeblastdb -in HOMD_rpoC.fna -dbtype nucl -out HOMD_rpoC.db
 ```
 
+Run blast
 
 ```bash
-cat rep_set.fa | parallel --block 100k --recstart '>' --pipe blastn -db ~/refdb/refseq_bac/ref_prok_rep_genomes -evalue 1e-10 -outfmt 6 -perc_identity 0.85 -query - > rep_set.blast.out
+cat rep_set.fa | parallel --block 100k --recstart '>' --pipe blastn -db ~/refdb/nt/nt -evalue 1e-10 -outfmt 6 -perc_identity 0.85 -query - > rep_set.blast.out
 ```
 
 Taxonomy assigned from blast output with MEGAN Community Edition (v.6). Select -> All Nodes, File -> Export -> Export to CSV -> readName_to_taxonPath, assigned, tab
