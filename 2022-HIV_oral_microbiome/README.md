@@ -31,9 +31,31 @@ conda env create -f environment.yml
 conda activate 2022-HIV_oral_microbiome
 ```
 
+- Add the R kernel to Jupyter by installing a kernel spec
+
+```bash
+R -e 'IRkernel::installspec()'
+```
+
 - To turn off the environment run
 
 ```bash
 conda deactivate
 ```
 
+## Repository structure
+
+```
+.
+├── 00-database_build
+│   └── README.md
+├── 01-read_processing
+│   ├── DADA2_processing.ipynb
+│   ├── README.md
+│   └── raw  [1836 entries exceeds filelimit, not opening dir]
+├── 02-diversity_analyses
+├── README.md
+└── environment.yml
+
+4 directories, 5 files
+```
