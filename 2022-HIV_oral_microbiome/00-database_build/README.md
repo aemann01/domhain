@@ -42,7 +42,7 @@ grep -v ">" rpoc.fna > seqs
 awk -F"_" '{print $2}' headers > accessions
 ```
 
-4b. Use accessions to get taxids for each entry (should have 15690)
+4b. Use accessions to get taxids for each entry 
 
 ```bash
 cat accessions | while read line; do esummary -db nuccore -id $line | xtract -pattern DocumentSummary -element TaxId,Title; done > taxids 2>esummary.err
