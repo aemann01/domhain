@@ -23,7 +23,7 @@ gzip -d all_genomes.fna.gz
 
 ### 3. Pull rpoC annotated sequences
 
-NOTE: not pulling gamma subunits -- these are found in chloroplasts and are not the same as rpoC in bacteria. Will have 15690 rpoC loci
+*NOTE: not pulling gamma subunits -- these are found in chloroplasts and are not the same as rpoC in bacteria. Will have 15690 rpoC loci*
 
 ```bash
 grep "gene=rpoC" all_genomes.fna | grep -v "gamma" | awk '{print $1}' | sed 's/>//' > rpoc.ids
@@ -33,7 +33,7 @@ rm all_genomes.fna
 
 ### 4. Generate custom kraken2 database from rpoC sequences
 
-Get each element that will be needed to generate the formatted fasta file
+4a. Get each element that will be needed to generate the formatted fasta file
 
 ```bash
 grep ">" rpoc.fna > headers
@@ -42,25 +42,25 @@ grep -v ">" rpoc.fna > seqs
 awk -F"_" '{print $2}' headers > accessions
 ```
 
-Use accessions to get taxids for each entry (should have 15690)
+4b. Use accessions to get taxids for each entry (should have 15690)
 
 ```bash
 cat accessions | while read line; do esummary -db nuccore -id $line | xtract -pattern DocumentSummary -element TaxId,Title; done > taxids 2>esummary.err
 ```
 
-If there are connection issues, the esummary.err file will tell you which accessions you didn't successfully pull a taxid for
+*NOTE: If there are connection issues, the esummary.err file will tell you which accessions you didn't successfully pull a taxid for*
 
-Generate master fasta file in kraken's format requirements
+4c. Generate master fasta file in kraken's format requirements
 
 ```bash
 paste accessions taxids | sed 's/^/>/' | sed 's/\t/|kraken:taxid|/' | sed 's/\t/ /' > fixed_headers
 paste fixed_headers seqs | sed 's/\t/\n/' > rpoc_ref.fa
 ```
 
-Create reference database
+4d. Create reference database
 
 ```bash
-cd ~/refdb
+cd ~/refdb # change me to where you want to keep your database folder
 mkdir kraken_rpoc
 kraken2-build --download-taxonomy --db kraken_rpoc/
 kraken2-build --add-to-library ~/domhain/00-database_build/rpoc_ref.fa --db kraken_rpoc
