@@ -28,9 +28,9 @@ kraken2 --db ~/refdb/kraken_rpoc/ --threads 8 --use-names --output rep_set.krake
 ```
 
 ```text
-22757 sequences (10.88 Mbp) processed in 0.643s (2124.7 Kseq/m, 1016.06 Mbp/m).
-  22196 sequences classified (97.53%)
-  561 sequences unclassified (2.47%)
+22766 sequences (10.89 Mbp) processed in 0.485s (2816.9 Kseq/m, 1347.04 Mbp/m).
+  22205 sequences classified (97.54%)
+  561 sequences unclassified (2.46%)
 ```
 
 3b. Get taxonomic lineage information from tax ids (uncomment lines below when running for the first time)
@@ -74,7 +74,7 @@ paste asvids lineages > taxonomy.txt
 grep "Bacteria" taxonomy.txt | grep -v "Bacteria$" | awk '{print $1}' > wanted.ids
 seqtk subseq rep_set.fa wanted.ids > rep_set.filt.fa
 grep "Bacteria" taxonomy.txt | grep -v "Bacteria$" > taxonomy_bac.txt
-python ../00-scripts/fix_taxonomy.py taxonomy_bac.txt > temp
+python fix_taxonomy.py taxonomy_bac.txt > temp
 mv temp taxonomy_bac.txt
 sed -i 's/;/\t/g' taxonomy_bac.txt
 ```
