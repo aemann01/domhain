@@ -28,9 +28,9 @@ kraken2 --db ~/refdb/kraken_rpoc/ --threads 8 --use-names --output rep_set.krake
 ```
 
 ```text
-22757 sequences (10.88 Mbp) processed in 0.643s (2124.7 Kseq/m, 1016.06 Mbp/m).
-  22196 sequences classified (97.53%)
-  561 sequences unclassified (2.47%)
+22766 sequences (10.89 Mbp) processed in 0.485s (2816.9 Kseq/m, 1347.04 Mbp/m).
+  22205 sequences classified (97.54%)
+  561 sequences unclassified (2.46%)
 ```
 
 3b. Get taxonomic lineage information from tax ids (uncomment lines below when running for the first time)
