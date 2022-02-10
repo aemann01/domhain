@@ -74,7 +74,7 @@ paste asvids lineages > taxonomy.txt
 grep "Bacteria" taxonomy.txt | grep -v "Bacteria$" | awk '{print $1}' > wanted.ids
 seqtk subseq rep_set.fa wanted.ids > rep_set.filt.fa
 grep "Bacteria" taxonomy.txt | grep -v "Bacteria$" > taxonomy_bac.txt
-python ../00-scripts/fix_taxonomy.py taxonomy_bac.txt > temp
+python fix_taxonomy.py taxonomy_bac.txt > temp
 mv temp taxonomy_bac.txt
 sed -i 's/;/\t/g' taxonomy_bac.txt
 ```
