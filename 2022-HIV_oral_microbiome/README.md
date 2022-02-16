@@ -57,9 +57,11 @@ conda deactivate
 │   ├── README.md
 │   └── diversity_analyses.ipynb
 ├── 03-network_analyses
+│   ├── README.md
 │   └── network_analysis.ipynb
 ├── 04-differential_abundance
-|   └── 
+│   ├── README.md
+|   └── differential_abundance.ipynb
 ├── README.md
 └── environment.yml
 
