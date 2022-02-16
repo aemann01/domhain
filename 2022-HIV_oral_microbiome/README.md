@@ -48,12 +48,18 @@ conda deactivate
 ```
 .
 ├── 00-database_build
-│   └── README.md
+│   ├── README.md
 ├── 01-read_processing
 │   ├── DADA2_processing.ipynb
 │   ├── README.md
-│   └── raw  [1836 entries exceeds filelimit, not opening dir]
+│   └── fix_taxonomy.py
 ├── 02-diversity_analyses
+│   ├── README.md
+│   └── diversity_analyses.ipynb
+├── 03-network_analyses
+│   └── network_analysis.ipynb
+├── 04-differential_abundance
+|   └── 
 ├── README.md
 └── environment.yml
 
