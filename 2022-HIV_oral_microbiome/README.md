@@ -68,5 +68,4 @@ conda deactivate
 ├── README.md
 └── environment.yml
 
-4 directories, 5 files
 ```
