@@ -50,14 +50,17 @@ conda deactivate
 ├── 00-database_build
 │   ├── README.md
 ├── 01-read_processing
+│   ├── DADA2_processing.Rmd
 │   ├── DADA2_processing.ipynb
 │   ├── README.md
 │   └── fix_taxonomy.py
 ├── 02-diversity_analyses
 │   ├── README.md
+│   ├── diversity_analyses.Rmd
 │   └── diversity_analyses.ipynb
 ├── 03-network_analyses
 │   ├── README.md
+│   ├── network_analysis.Rmd
 │   └── network_analysis.ipynb
 ├── 04-differential_abundance
 │   ├── README.md
@@ -65,5 +68,4 @@ conda deactivate
 ├── README.md
 └── environment.yml
 
-4 directories, 5 files
 ```
