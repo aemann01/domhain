@@ -1,5 +1,5 @@
 ---
-title: Network analyses
+title: An R Markdown document converted from "network_analysis.ipynb"
 output: html_document
 ---
 
@@ -28,8 +28,6 @@ library(GGally)
 
 ```{r}
 load("../02-diversity_analyses/.RData")
-# OR load data from current folder
-# load(".RData")
 ```
 
 ### 4. ASV interaction network
@@ -46,43 +44,37 @@ ps.dat.HI.CFPF <- filter_taxa(ps.dat.HI.CFPF, function(x) sum(x > 3) > (0.10*len
                               
 ## HI CA-PD                              
 ps.dat.HI.CAPD <- subset_samples(ps.dat.noUS, study_group == "HI" & aliquot_type == "CA-PD")
-# filter low abundance taxa to simplify network building step (seen at least 3 times in 10% of samples)
 ps.dat.HI.CAPD <- filter_taxa(ps.dat.HI.CAPD , function(x) sum(x > 3) > (0.10*length(x)), TRUE)
                               
 ## HUU CF-PF                              
 ps.dat.HUU.CFPF <- subset_samples(ps.dat.noUS, study_group == "HUU" & aliquot_type == "CF-PF")
-# filter low abundance taxa to simplify network building step (seen at least 3 times in 10% of samples)
 ps.dat.HUU.CFPF <- filter_taxa(ps.dat.HUU.CFPF, function(x) sum(x > 3) > (0.10*length(x)), TRUE)
                                
 ## HUU CA-PD                               
 ps.dat.HUU.CAPD <- subset_samples(ps.dat.noUS, study_group == "HUU" & aliquot_type == "CA-PD")
-# filter low abundance taxa to simplify network building step (seen at least 3 times in 10% of samples)
 ps.dat.HUU.CAPD <- filter_taxa(ps.dat.HUU.CAPD, function(x) sum(x > 3) > (0.10*length(x)), TRUE)
                                
 ## HEU CF-PF                               
 ps.dat.HEU.CFPF <- subset_samples(ps.dat.noUS, study_group == "HEU" & aliquot_type == "CF-PF")
-# filter low abundance taxa to simplify network building step (seen at least 3 times in 10% of samples)
 ps.dat.HEU.CFPF <- filter_taxa(ps.dat.HEU.CFPF, function(x) sum(x > 3) > (0.10*length(x)), TRUE)
                                
 ## HEU CA-PD                               
 ps.dat.HEU.CAPD <- subset_samples(ps.dat.noUS, study_group == "HEU" & aliquot_type == "CA-PD")
-# filter low abundance taxa to simplify network building step (seen at least 3 times in 10% of samples)
 ps.dat.HEU.CAPD <- filter_taxa(ps.dat.HEU.CAPD, function(x) sum(x > 3) > (0.10*length(x)), TRUE)
                                
 ## HI CA-PE                               
 ps.dat.HI.CAPE <- subset_samples(ps.dat.noUS, study_group == "HI" & aliquot_type == "CA-PE")
-# filter low abundance taxa to simplify network building step (seen at least 3 times in 10% of samples)
 ps.dat.HI.CAPE <- filter_taxa(ps.dat.HI.CAPE, function(x) sum(x > 3) > (0.10*length(x)), TRUE)
 
 ## HUU CA-PE                              
 ps.dat.HUU.CAPE <- subset_samples(ps.dat.noUS, study_group == "HUU" & aliquot_type == "CA-PE")
-# filter low abundance taxa to simplify network building step (seen at least 3 times in 10% of samples)
 ps.dat.HUU.CAPE <- filter_taxa(ps.dat.HUU.CAPE, function(x) sum(x > 3) > (0.10*length(x)), TRUE)
-                               
-## HEU CA-PE                               
+
+## HEU CA-PE    
+# had to increase filter to 25% of samples or too many ASVs to calculate (crashes R)
+# network interpretation to be taken with a grain of salt as n is very small 
 ps.dat.HEU.CAPE <- subset_samples(ps.dat.noUS, study_group == "HEU" & aliquot_type == "CA-PE")
-# filter low abundance taxa to simplify network building step (seen at least 3 times in 10% of samples)
-ps.dat.HEU.CAPE <- filter_taxa(ps.dat.HEU.CAPE, function(x) sum(x > 3) > (0.10*length(x)), TRUE)
+ps.dat.HEU.CAPE <- filter_taxa(ps.dat.HEU.CAPE, function(x) sum(x > 3) > (0.25*length(x)), TRUE)
 ```
 
 #### 4b. HI CF-PF network
@@ -363,8 +355,8 @@ dev.off()
 write.graph(spiec.graph, file="spieceasi.ncol.HI.CAPD.txt", format="ncol")
 
 # kcore decomp
-paste("core network ASVs: ", which(coreness(spiec.graph)>=2))
-paste("peripheral network ASVs: ", which(coreness(spiec.graph)==0))
+which(coreness(spiec.graph)>=2)
+which(coreness(spiec.graph)==0)
 
 # eigenvalue centrality
 tail(sort(igraph::eigen_centrality(spiec.graph)$vector), 10)
@@ -422,8 +414,8 @@ dev.off()
 write.graph(spiec.graph, file="spieceasi.ncol.HUU.CAPD.txt", format="ncol")
 
 # kcore decomp
-paste("core network ASVs: ", which(coreness(spiec.graph)>=2))
-paste("peripheral network ASVs: ", which(coreness(spiec.graph)==0))
+which(coreness(spiec.graph)>=2)
+which(coreness(spiec.graph)==0)
 
 # eigenvalue centrality
 tail(sort(igraph::eigen_centrality(spiec.graph)$vector), 10)
@@ -481,8 +473,8 @@ dev.off()
 write.graph(spiec.graph, file="spieceasi.ncol.HEU.CAPD.txt", format="ncol")
 
 # kcore decomp
-paste("core network ASVs: ", which(coreness(spiec.graph)>=2))
-paste("peripheral network ASVs: ", which(coreness(spiec.graph)==0))
+which(coreness(spiec.graph)>=2)
+which(coreness(spiec.graph)==0)
 
 # eigenvalue centrality
 tail(sort(igraph::eigen_centrality(spiec.graph)$vector), 10)
@@ -540,8 +532,8 @@ dev.off()
 write.graph(spiec.graph, file="spieceasi.ncol.HI.CAPE.txt", format="ncol")
 
 # kcore decomp
-paste("core network ASVs: ", which(coreness(spiec.graph)>=2))
-paste("peripheral network ASVs: ", which(coreness(spiec.graph)==0))
+which(coreness(spiec.graph)>=2)
+which(coreness(spiec.graph)==0)
 
 # eigenvalue centrality
 tail(sort(igraph::eigen_centrality(spiec.graph)$vector), 10)
@@ -599,8 +591,8 @@ dev.off()
 write.graph(spiec.graph, file="spieceasi.ncol.HUU.CAPE.txt", format="ncol")
 
 # kcore decomp
-paste("core network ASVs: ", which(coreness(spiec.graph)>=2))
-paste("peripheral network ASVs: ", which(coreness(spiec.graph)==0))
+which(coreness(spiec.graph)>=2)
+which(coreness(spiec.graph)==0)
 
 # eigenvalue centrality
 tail(sort(igraph::eigen_centrality(spiec.graph)$vector), 10)
@@ -611,6 +603,8 @@ spiec.graph.HUUCAPE <- spiec.graph
 #### 4i. HEU CA-PE network
 
 ```{r}
+# not enough samples to build this network - not included
+
 spiec.out <- spiec.easi(ps.dat.HEU.CAPE, method="mb", lambda.min.ratio=1e-2, nlambda=20, pulsar.params=list(rep.num=100))
 spiec.graph <- adj2igraph(getRefit(spiec.out), vertex.attr=list(name=taxa_names(ps.dat.HEU.CAPE)))
 paste("Total number of ASVs in graph: ", length(taxa_names(ps.dat.HEU.CAPD)))
@@ -658,18 +652,12 @@ dev.off()
 write.graph(spiec.graph, file="spieceasi.ncol.HEU.CAPE.txt", format="ncol")
 
 # kcore decomp
-paste("core network ASVs: ", which(coreness(spiec.graph)>=2))
-paste("peripheral network ASVs: ", which(coreness(spiec.graph)==0))
+which(coreness(spiec.graph)>=2)
+which(coreness(spiec.graph)==0)
 
 # eigenvalue centrality
 tail(sort(igraph::eigen_centrality(spiec.graph)$vector), 10)
 # save graph
 spiec.graph.HEUCAPE <- spiec.graph
-```
-
-Save workspace
-
-```{r}
-save.image()
 ```
 
