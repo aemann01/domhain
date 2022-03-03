@@ -3,6 +3,7 @@ channels:
   - defaults
   - bioconda
   - conda-forge
+  - anaconda
 dependencies:
   - anaconda::python=3.7
   - bioconda::cutadapt=3.4
