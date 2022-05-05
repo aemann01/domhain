@@ -1,6 +1,6 @@
 # HIV and the oral microbiome
 
-This repository describes the analysis performed in the paper ///////
+This repository describes the analysis performed in the paper *Mann et al. ///////*
 
 ## Setup
 
@@ -15,14 +15,13 @@ To get this repository:
 - Clone this repository to your machine and change into the directory with
 
 ```bash
-git clone https://github.com/aemann01/domhain.git && cd domhain/
+git clone https://github.com/aemann01/domhain.git && cd domhain/2022-HIV_oral_microbiome
 ```
 
 - Run the following command to install the environment
 
 ```bash
 conda env create -f environment.yml
-
 ```
 
 - To load the environment
@@ -59,13 +58,24 @@ conda deactivate
 │   ├── diversity_analyses.Rmd
 │   └── diversity_analyses.ipynb
 ├── 03-network_analyses
+│   ├── Network_comparison.ipynb
 │   ├── README.md
 │   ├── network_analysis.Rmd
 │   └── network_analysis.ipynb
 ├── 04-differential_abundance
 │   ├── README.md
 |   └── differential_abundance.ipynb
+├── 05-phylo_trees
+│   ├── README.md
+|   └── summarize_seqtab.py
+├── 06-pathogens
+|   └── scratch.r
+├── 07-age
+|   └── age_analyses.ipynb
+├── 08-low_smutans
+|   └── intraindividual_diversity.ipynb
+├── 09-ASV_analyses
+|   └── ASV_analyses.ipynb
 ├── README.md
 └── environment.yml
-
 ```
