@@ -78,6 +78,9 @@ conda deactivate
 |   └── intraindividual_diversity.ipynb
 ├── 09-ASV_analyses
 |   └── ASV_analyses.ipynb
+├── 10-siblings
+│   ├── sibling_analyses.ipynb
+|   └── siblings.txt
 ├── README.md
 └── environment.yml
 ```
