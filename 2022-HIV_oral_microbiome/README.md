@@ -2,6 +2,8 @@
 
 This repository describes the analysis performed in the paper *Mann et al. ///////*
 
+[![DOI](https://zenodo.org/badge/457036815.svg)](https://zenodo.org/badge/latestdoi/457036815)
+
 ## Setup
 
 This repository assumes you are running in a Unix environment (e.g., Mac OSX or Linux) and you have conda installed.
@@ -76,6 +78,9 @@ conda deactivate
 |   └── intraindividual_diversity.ipynb
 ├── 09-ASV_analyses
 |   └── ASV_analyses.ipynb
+├── 10-siblings
+│   ├── sibling_analyses.ipynb
+|   └── siblings.txt
 ├── README.md
 └── environment.yml
 ```
