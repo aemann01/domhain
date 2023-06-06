@@ -75,12 +75,16 @@ conda deactivate
 ├── 07-age
 |   └── age_analyses.ipynb
 ├── 08-low_smutans
-|   └── intraindividual_diversity.ipynb
+│   ├── intraindividual_diversity.ipynb
+|   └── low_smutans_capplot.ipynb
 ├── 09-ASV_analyses
 |   └── ASV_analyses.ipynb
 ├── 10-siblings
 │   ├── sibling_analyses.ipynb
 |   └── siblings.txt
+├── 12-revisions
+|   └── revision_figures.ipynb
 ├── README.md
+├── domhain_metadata.sql
 └── environment.yml
 ```
