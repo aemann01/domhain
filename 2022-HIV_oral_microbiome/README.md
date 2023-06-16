@@ -1,6 +1,6 @@
 # HIV and the oral microbiome
 
-This repository describes the analysis performed in the paper *Mann et al. ///////*
+This repository describes the analysis performed in the paper *Mann et al. 2023. The impact of HIV on the oral microbiome of children living in sub-Saharan Africa using a rpoC gene-fragment metataxonomic approach. Microbiology Spectrum*
 
 [![DOI](https://zenodo.org/badge/457036815.svg)](https://zenodo.org/badge/latestdoi/457036815)
 
