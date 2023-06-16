@@ -2,12 +2,13 @@
 
 ### 1. Setup
 
-Download raw data from ////
+Download raw data from ENA (project accession PRJEB60354)
 
 ```bash
-cd $HOME/domhain/2022-HIV_oral_microbiome/02-read_processing 
+cd $HOME/domhain/2022-HIV_oral_microbiome/01-read_processing 
 mkdir raw && cd raw
-wget ////
+awk -F"\t" '{print $7}' ../filereport_read_run_PRJEB60354_tsv.txt | tr ';' '\n' > query
+wget -i query
 cd ..
 ```
 
