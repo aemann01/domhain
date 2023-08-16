@@ -1,5 +1,7 @@
 # *rpoC* Oral Bacteria Database Build
 
+## NOTE: Currently building a stand alone database for rpoC: [rpoCdb](https://github.com/rpoCdb/rpoCdatabase/tree/main) Check back soon for downloads/info!
+
 ### 1. Download bacterial assembly data from NCBI
 
 ```bash
